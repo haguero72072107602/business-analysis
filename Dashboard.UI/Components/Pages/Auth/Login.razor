@@ -1,0 +1,53 @@
+﻿@page "/login"
+@using Dashboard.Domain.Models
+@using Microsoft.AspNetCore.Authorization
+@using MudBlazor
+
+@attribute [AllowAnonymous]
+
+
+<MudContainer MaxWidth="MaxWidth.Small" Class="d-flex align-center" Style="height: 80vh;">
+    <MudPaper Elevation="25" Class="pa-8" Style="width:500px;">
+        <EditForm  Model="Model" FormName="formLogin" OnSubmit="SubmitLogin">
+            <AntiforgeryToken />
+            <DataAnnotationsValidator/>
+            <MudGrid>
+                <MudItem xs="12">
+                    <div class="d-flex justify-center">
+                        <MudIcon Icon="@Icons.Material.Filled.Login" Color="Color.Primary" Size="Size.Large"/>
+                    </div>
+                </MudItem>
+                <MudItem xs="12">
+                    <div class="d-flex justify-center">
+                        <MudText Typo="Typo.h4">Login</MudText>
+                    </div>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField T="string" Label="Correo" Variant="Variant.Outlined"
+                                  InputType="InputType.Text"
+                                  @bind-Value="Model.UserName"
+                                  Required="true" RequiredError="El correo es requerido">
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField Label="Contraseña" Variant="Variant.Outlined"
+                                  InputType="InputType.Password"
+                                  @bind-Value="Model.Password"
+                                  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Password"/>
+                </MudItem>
+                <MudItem xs="12" Class="d-flex justify-center">
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled"
+                               Color="Color.Primary" Size="Size.Large"
+                               Class="w-25"
+                               Style="width: 100%;text-transform: none">
+                        Ingresar
+                    </MudButton>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+    </MudPaper>
+</MudContainer>
+
+@code
+{
+}

@@ -1,0 +1,72 @@
+﻿@using Dashboard.Domain.Common
+@inject NavigationManager NavigationManager
+
+@*
+<MudNavMenu Dense="true" Color="Color.Info">
+    <MudNavLink Href="/dashboard" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
+    <MudNavLink Href="/components/navmenu" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Storage">Servers</MudNavLink>
+    <MudNavLink Href="/billing" Disabled="true">Billing</MudNavLink>
+    <MudNavGroup Title="Settings" Expanded="true">
+        <MudNavLink Href="/login">Users</MudNavLink>
+        <MudNavLink Href="/weather">Weather</MudNavLink>
+    </MudNavGroup>
+    <MudNavLink Href="/logout">About</MudNavLink>
+</MudNavMenu>
+
+
+
+@code {
+    private string? currentUrl;
+
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+}
+*@
+
+<MudNavMenu>
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Style="font-weight: bold;font-size: 18px" Class="d-flex justify-center">Inicio</MudNavLink>
+    <MudNavLink Href="/Supplier-List" Match="NavLinkMatch.Prefix" Style="font-weight: bold;;font-size: 16px">Supplier</MudNavLink>
+    <MudNavLink Href="/Product-offering" Match="NavLinkMatch.Prefix" Style=";font-size: 16px">Product offering</MudNavLink>
+    <MudNavLink Href="/Categories-List" Match="NavLinkMatch.Prefix" Style=";font-size: 16px">Categories</MudNavLink>
+    <MudNavLink Href="/mup-List" Match="NavLinkMatch.Prefix" Style=";font-size: 16px">Master product</MudNavLink>
+
+    <AuthorizeView Roles=@Roles.AdministratorRole>
+        <MudNavGroup Title="Configuration" Expanded="true" Style=";font-size: 18px">
+            <MudNavLink Href="/Users-list" Match="NavLinkMatch.Prefix" Style=";font-size: 16px">Users</MudNavLink>
+            <MudNavLink Href="/Entities-List" Match="NavLinkMatch.Prefix" Style=";font-size: 16px">Entities</MudNavLink>
+        </MudNavGroup>
+    </AuthorizeView>
+
+
+    <MudNavGroup Title="Reports" Expanded="true" Style=";font-size: 18px">
+        <MudNavLink Href="/report/price-comparison" Match="NavLinkMatch.Prefix" Style=";font-size: 16px">Price comparison</MudNavLink>
+        <MudNavLink Href="/Entities-List" Match="NavLinkMatch.Prefix" Style=";font-size: 16px">Entities</MudNavLink>
+    </MudNavGroup>
+    @* <MudNavLink Href="/FileManager" Match="NavLinkMatch.Prefix" Style=";font-size: 18px">Configuración</MudNavLink> *@
+</MudNavMenu>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+}

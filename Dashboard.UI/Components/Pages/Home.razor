@@ -1,0 +1,28 @@
+﻿@page "/"
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+<PageTitle>Home</PageTitle>
+
+<MudContainer Class="px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="12" md="12">
+            <AuthorizeView>
+                <Authorized>
+                    <h1>Hello, @context.User.Identity?.Name</h1>
+                </Authorized>
+                <NotAuthorized>
+                    <h1>Hello, Guest</h1>
+                </NotAuthorized>
+            </AuthorizeView>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+
+    private void OpenDialogAsync()
+    {
+    }
+
+}

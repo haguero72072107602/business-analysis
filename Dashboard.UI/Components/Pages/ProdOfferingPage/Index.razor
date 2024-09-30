@@ -1,0 +1,84 @@
+@page "/Product-Offering"
+
+@using Dashboard.Domain.Common
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize(Roles = $"{Roles.AdministratorRole},{Roles.ManagerRole}")]
+
+<MudContainer Class="px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="12" md="12">
+            <MudPaper Elevation="3" class="d-flex justify-content-between p-4 align-items-center">
+                <div Style="font-weight: bold;font-size: 18px">Users</div>
+                <div>
+                    <MudButton Size="@Size.Medium" Variant="@Variant.Filled" Color="@Color.Primary"
+                               Style="text-transform: none;font-weight: bold;"
+                               @onclick="@(() => ImportRowCellClick())">
+                        Import offering product
+                    </MudButton>
+                    <MudButton Size="@Size.Medium" Variant="@Variant.Filled" Color="@Color.Primary"
+                               Style="text-transform: none;font-weight: bold;"
+                               @onclick="@(() => NewOrEditRowCellClick(null))">
+                        New offering product
+                    </MudButton>
+                </div>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="12" md="12">
+            <MudDataGrid T="ProductOffering" Items="@_listProductOfferings"
+                         Striped="true" 
+                         Height="90%" ColumnResizeMode="ResizeMode.None" 
+                         MultiSelection="false" Hover="true" Bordered="true" Elevation="15">
+                <Columns>
+                    @*
+                    <SelectColumn T="Users"/>
+                    *@
+                    <PropertyColumn Property="x => x.Supc" Title="Code"
+                                    Resizable="false"
+                                    CellStyle="width: 5%;" />
+                    <PropertyColumn Property="x => x.Pack"
+                                    Resizable="false"
+                                    CellStyle="width: 5%;" />
+                    <PropertyColumn Property="x => x.Size"
+                                    Resizable="false"
+                                    CellStyle="width: 5%;"/>
+                    <PropertyColumn Property="x => x.Unit"
+                                    Resizable="false"
+                                    CellStyle="width: 5%;"/>
+                    @*
+                    <PropertyColumn Property="x => x.Brand"
+                                    Resizable="false"
+                                    CellStyle="width: 10%" />
+                    *@                                        
+                    <PropertyColumn Property="x => x.Desc"
+                                    Resizable="false"
+                                    CellStyle="width: 20%" />
+                    <PropertyColumn Property="x => x.Cat"
+                                    Resizable="false"
+                                    CellStyle="width: 10%" />
+                    <PropertyColumn Property="x => x.Price"/>
+                    <PropertyColumn Property="x => x.Stock"/>
+                    <TemplateColumn CellClass="d-flex justify-center">
+                        <CellTemplate>
+                            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary"
+                                       Class="w-25" Style="text-transform: none;font-weight: bold;"
+                                       @onclick="@(() => NewOrEditRowCellClick(context.Item))">
+                                Edit
+                            </MudButton>
+                            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error"
+                                       Class="ml-4 w-25" Style="text-transform: none;font-weight: bold;"
+                                       @onclick="@(() => DeleteRowCellClicked(context.Item))">
+                                Delete
+                            </MudButton>
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+                <PagerContent>
+                    <MudDataGridPager T="ProductOffering"/>
+                </PagerContent>
+            </MudDataGrid>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@* CellStyle="width: 100px; overflow-x: hidden; white-space: nowrap;" /> *@

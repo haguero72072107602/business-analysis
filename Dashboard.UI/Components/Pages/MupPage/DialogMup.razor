@@ -1,0 +1,41 @@
+@inherits ComponentBaseDialog
+
+<EditForm Model="@Model" OnValidSubmit="Submit">
+    <MudDialog>
+        <TitleContent>
+            <MudText Typo="Typo.h6">
+                @*<MudIcon Icon="@Icons.Material.Filled.OpenInNew" Class="mr-3 mb-n1"/>*@
+                @Title
+            </MudText>
+        </TitleContent>
+        <DialogContent>
+            <MudGrid>
+                <MudItem md="6">
+                    <MudTextField @bind-Value="@Model!.Code" Label="Code" Variant="Variant.Text"
+                                  MaxLength="6">
+                    </MudTextField>
+                </MudItem>
+                <MudItem md="12">
+                    <MudTextField @bind-Value="@Model!.Description" Label="Description" Variant="Variant.Text"
+                                  MaxLength="200">
+                    </MudTextField>
+                </MudItem>
+                @*
+                <MudItem md="12">
+                    <MudTextField @bind-Value="@Model!.Price" Label="Address" Variant="Variant.Text"
+                                  MaxLength="200"></MudTextField>
+                </MudItem>
+                *@
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Filled" OnClick="Cancel" Style="width: 55px" Size="@Size.Medium">
+                Cancel
+            </MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" Size="@Size.Medium"
+                       Color="Color.Success" Style="width: 55px">
+                Ok
+            </MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>

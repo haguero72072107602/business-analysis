@@ -1,0 +1,51 @@
+@page "/users-list"
+@using Dashboard.Domain.Common
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize(Roles = Roles.AdministratorRole)]
+
+
+<MudContainer Class="px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="12" md="12">
+            <MudPaper Elevation="3" class="d-flex justify-content-between p-4 align-items-center">
+                <div Style="font-weight: bold;font-size: 18px">Users</div>
+                <div>
+                    <MudButton Size="@Size.Medium" Variant="@Variant.Filled" Color="@Color.Primary"
+                               Style="text-transform: none;font-weight: bold;"
+                               @onclick="@(() => NewOrEditRowCellClick(null))">
+                        New user
+                    </MudButton>
+                </div>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="12" md="12">
+            <MudDataGrid T="Users" Items="@_listUsers"
+                         MultiSelection="false" Hover="true" Bordered="true" Elevation="15">
+                <Columns>
+                    @*<SelectColumn T="Users"/>*@
+                    <PropertyColumn Property="x => x.UserName" Title="Nr"/>
+                    <PropertyColumn Property="x => x.Role"/>
+                    <PropertyColumn Property="x => x.Email"/>
+                    <TemplateColumn CellClass="d-flex justify-center">
+                        <CellTemplate>
+                            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary"
+                                       Class="w-25" Style="text-transform: none;font-weight: bold;"
+                                       @onclick="@(() => NewOrEditRowCellClick(context.Item))">
+                                Edit
+                            </MudButton>
+                            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error"
+                                       Class="ml-4 w-25" Style="text-transform: none;font-weight: bold;"
+                                       @onclick="@(() => DeleteRowCellClicked(context.Item))">
+                                Delete
+                            </MudButton>
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+                <PagerContent>
+                    <MudDataGridPager T="Users"/>
+                </PagerContent>
+            </MudDataGrid>
+        </MudItem>
+    </MudGrid>
+</MudContainer>

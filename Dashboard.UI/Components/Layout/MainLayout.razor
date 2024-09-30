@@ -1,0 +1,79 @@
+﻿@inherits LayoutComponentBase
+
+@inject NavigationManager NavigationManager
+
+
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+<MudPopoverProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())"/>
+        <MudText Typo="Typo.h5" Class="ml-3">Business analysis</MudText>
+        <MudSpacer/>
+        @*<MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />*@
+        <AuthorizeView>
+            <Authorized>
+                <MudMenu EndIcon="@Icons.Material.Filled.Person"
+                         Color="Color.Inherit"
+                         Dense="true"
+                         Direction="Direction.Left"
+                         TransformOrigin="Origin.BottomCenter"
+                         AnchorOrigin="Origin.BottomLeft">
+                    <MudMenuItem Link="/Identity/user-profile" Style="font-size: 24px">
+                        <MudIcon Icon="@Icons.Material.Filled.Person"/> Perfil
+                    </MudMenuItem>
+                    <MudDivider/>
+                    <MudMenuItem OnClick="OnLogout">
+                        <MudIcon Icon="@Icons.Material.Filled.Logout"/> Close session
+                    </MudMenuItem>
+                </MudMenu>
+            </Authorized>
+            <NotAuthorized>
+                <MudMenu EndIcon="@Icons.Material.Filled.Person" Color="Color.Inherit"
+                         Dense="true"
+                         Direction="Direction.Left"
+                         TransformOrigin="Origin.BottomCenter"
+                         AnchorOrigin="Origin.BottomLeft">
+                    <MudMenuItem OnClick="Onlogin">
+                        <MudIcon Icon="@Icons.Material.Filled.Login"/> Login
+                    </MudMenuItem>
+                </MudMenu>
+            </NotAuthorized>
+        </AuthorizeView>
+
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <NavMenu/>
+    </MudDrawer>
+    <MudMainContent>
+        <CascadingValue Value="_drawerOpen" Name="DrawerOpen">
+            <MudScrollToTop TopOffset="400" Style="z-index:2000;">
+                <MudFab Icon="@Icons.Material.Filled.MoveUp" Color="Color.Primary"/>
+            </MudScrollToTop>
+            @Body
+        </CascadingValue>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    private void Onlogin()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+
+    private void OnLogout()
+    {
+        NavigationManager.NavigateTo("/logout");
+    }
+
+}
