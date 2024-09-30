@@ -1,0 +1,88 @@
+@inherits ComponentBaseDialog
+
+<EditForm Model="@Model" OnValidSubmit="Submit">
+    <MudDialog>
+        <TitleContent>
+            <MudText Typo="Typo.h6">
+                @*<MudIcon Icon="@Icons.Material.Filled.VerifiedUser" Class="mr-3 mb-n1"/>*@
+                @Title
+            </MudText>
+        </TitleContent>
+        <DialogContent>
+            <MudGrid>
+                <MudItem md="4">
+                    <MudTextField @bind-Value="@Model!.Supc" Label="Code" Variant="Variant.Text"
+                                  MaxLength="6"></MudTextField>
+                </MudItem>
+                <MudItem md="8">
+                    <MudTextField @bind-Value="@Model!.Desc" Label="Description" Variant="Variant.Text"
+                                  MaxLength="200"></MudTextField>
+                </MudItem>
+                
+                <MudItem md="4">
+                    <MudTextField @bind-Value="@Model!.Pack" Label="Pack" Variant="Variant.Text"
+                                  MaxLength="200"></MudTextField>
+                </MudItem>
+                <MudItem md="4">
+                    <MudTextField @bind-Value="@Model!.Size" Label="Size" Variant="Variant.Text"
+                                  MaxLength="200"></MudTextField>
+                </MudItem>
+                <MudItem md="4">
+                    <MudTextField @bind-Value="@Model!.Unit" Label="Unit" Variant="Variant.Text"
+                                  MaxLength="200"></MudTextField>
+                </MudItem>
+
+                <MudItem md="4">
+                    <MudTextField @bind-Value="@Model!.Brand" Label="Brand" Variant="Variant.Text"
+                                  MaxLength="200"></MudTextField>
+                </MudItem>
+                <MudItem md="4">
+                    <MudTextField @bind-Value="@Model!.Cat" Label="Category" Variant="Variant.Text"
+                                  MaxLength="200"></MudTextField>
+                </MudItem>
+                <MudItem md="4">
+                    <MudTextField @bind-Value="@Model!.Stock" Label="Stock" Variant="Variant.Text"
+                                  MaxLength="200"></MudTextField>
+                </MudItem>
+
+                <MudItem md="4">
+                    <MudTextField @bind-Value="@Model!.Price" Label="Price" Variant="Variant.Text"
+                                  MaxLength="200"></MudTextField>
+                </MudItem>
+                <MudItem md="4">
+                    <MudSelect T="int" Label="Master product" MultiSelection="false" @bind-Value="@Model!.IdMup"
+                               Variant="Variant.Text" Required="true"
+                               FullWidth="true"
+                               CloseIcon="@Icons.Material.Filled.Flag" AdornmentColor="Color.Tertiary"
+                               AnchorOrigin="Origin.BottomCenter">
+                        @foreach (var mup in _listMup)
+                        {
+                            <MudSelectItem T="int" Value="@mup.Id">@mup.Description</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem md="4">
+                    <MudSelect T="int" Label="Master product" MultiSelection="false" @bind-Value="@Model!.IdSupplier"
+                               Variant="Variant.Text" Required="true"
+                               FullWidth="true"
+                               CloseIcon="@Icons.Material.Filled.Flag" AdornmentColor="Color.Tertiary"
+                               AnchorOrigin="Origin.BottomCenter">
+                        @foreach (var supplier in _listSuppliers)
+                        {
+                            <MudSelectItem T="int" Value="@supplier.Id">@supplier.Description</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Filled" OnClick="Cancel" Style="width: 55px" Size="@Size.Medium">
+                Cancel
+            </MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit"  Size="@Size.Medium"
+                       Color="Color.Success" Style="width: 55px">
+                Ok
+            </MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>

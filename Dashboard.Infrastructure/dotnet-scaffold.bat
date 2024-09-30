@@ -1,0 +1,2 @@
+dotnet ef dbcontext scaffold "Data Source=localhost;Initial Catalog=ZunStockCPTUR;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -o Model -t almnespe -t almngrup -t almnfami -t almnsfam -t almnumed -t almnarti -t ALMECGPO -t almnclas -t almncate -f -v -d
+                                                                                                                                                             

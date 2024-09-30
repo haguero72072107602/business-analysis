@@ -1,0 +1,67 @@
+@using Dashboard.Domain.Common
+@inherits ComponentBaseDialog 
+
+<EditForm Model="@Model" OnValidSubmit="Submit"  >
+    <MudDialog>
+        <TitleContent>
+            <MudText Typo="Typo.h6">
+                @*<MudIcon Icon="@Icons.Material.Filled.VerifiedUser" Class="mr-3 mb-n1"/>*@
+                @Title
+            </MudText>
+        </TitleContent>
+        <DialogContent>
+            <MudGrid>
+                <MudItem md="6">
+                    <MudTextField @bind-Value="@Model!.UserName" Label="User name" Variant="Variant.Text" 
+                                  MaxLength="6"></MudTextField>
+                </MudItem>
+                <MudItem md="6">
+                    <MudTextField @bind-Value="@Model!.Email" Label="Email" Variant="Variant.Text"
+                                  MaxLength="6"></MudTextField>
+                </MudItem>
+                <MudItem md="6">
+                    <MudTextField @bind-Value="@Model!.Password" Label="Password" Variant="Variant.Text"
+                                  MaxLength="200"></MudTextField>
+               
+                </MudItem>
+                <MudItem md="6">
+                    <MudTextField @bind-Value="@Model!.ConfirmedPswd" Label="Confirmed password" Variant="Variant.Text"
+                                  MaxLength="200"></MudTextField>
+
+                </MudItem>
+                @*
+                <MudItem md="6">
+                    <MudTextField @bind-Value="@Model!.Password" Label="Description" Variant="Variant.Text"
+                                  MaxLength="200"></MudTextField>
+                </MudItem>
+                *@
+                <MudItem md="6" Class="d-flex flex-column">
+                    <MudRadioGroup @bind-Value="@Model!.Role">
+                        <MudRadio Value="@Roles.AdministratorRole">Administrator</MudRadio>
+                        <MudRadio Value="@Roles.ManagerRole">Manager</MudRadio>
+                        <MudRadio Value="@Roles.OperatorRole">Operator</MudRadio>
+                    </MudRadioGroup>
+                </MudItem>
+                @*
+                <MudItem md="6">
+                    <MudTextField @bind-Value="@Model!.Address" Label="Address" Variant="Variant.Text"
+                                  MaxLength="400"></MudTextField>
+                </MudItem>
+                *@
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Filled" OnClick="Cancel" Style="width: 55px" Size="@Size.Medium">
+                Cancel
+            </MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit"  Size="@Size.Medium"
+                       Color="Color.Success" Style="width: 55px">
+                Ok
+            </MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+    
+}
